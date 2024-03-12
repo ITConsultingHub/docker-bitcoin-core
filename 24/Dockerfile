@@ -53,6 +53,7 @@ RUN set -ex \
   && rm *.tar.gz *.asc \
   && rm -rf /opt/bitcoin-${BITCOIN_VERSION}/bin/bitcoin-qt
 
+COPY bitcoin.conf /etc/bitcoin/bitcoin.conf
 COPY docker-entrypoint.sh /entrypoint.sh
 
 VOLUME ["/home/bitcoin/.bitcoin"]

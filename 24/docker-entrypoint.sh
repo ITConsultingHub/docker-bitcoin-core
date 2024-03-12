@@ -28,6 +28,13 @@ if [ $(echo "$1" | cut -c1) = "-" ] || [ "$1" = "bitcoind" ]; then
   echo "$0: setting data directory to $BITCOIN_DATA"
 
   set -- "$@" -datadir="$BITCOIN_DATA"
+
+  # New lines to copy bitcoin.conf from /etc/bitcoin to the desired locations.
+  echo "$0: copying bitcoin.conf to /home/bitcoin/.bitcoin and /root/.bitcoin"
+  cp /etc/bitcoin/bitcoin.conf /home/bitcoin/.bitcoin/bitcoin.conf
+  cp /etc/bitcoin/bitcoin.conf /root/.bitcoin/bitcoin.conf
+  chown bitcoin:bitcoin /home/bitcoin/.bitcoin/bitcoin.conf
+  chmod 600 /home/bitcoin/.bitcoin/bitcoin.conf
 fi
 
 if [ "$1" = "bitcoind" ] || [ "$1" = "bitcoin-cli" ] || [ "$1" = "bitcoin-tx" ]; then
